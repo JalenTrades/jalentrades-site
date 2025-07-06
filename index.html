@@ -69,6 +69,18 @@
     .button:hover {
       background: var(--button-hover);
     }
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
     footer {
       text-align: center;
       padding: 2rem;
@@ -94,10 +106,16 @@
       <li>🧠 AI-enhanced research tools and dashboards</li>
       <li>💬 Private community for active traders</li>
     </ul>
+  </section>
 
-    <a class="button" href="mailto:johnsonjjalen@gmail.com?subject=JalenTrades%20Inquiry&body=Hi%20Jalen%2C%20I'm%20interested%20in%20learning%20more%20about%20your%20trading%20outlooks." target="_blank">
-      Email Me
-    </a>
+  <section>
+    <h3>Contact Me</h3>
+    <form action="https://formsubmit.co/johnsonjjalen@gmail.com" method="POST">
+      <input type="text" name="name" placeholder="Your name" required>
+      <input type="email" name="email" placeholder="Your email" required>
+      <textarea name="message" placeholder="Your message" required></textarea>
+      <button type="submit" class="button">Send Message</button>
+    </form>
   </section>
 
   <section>
