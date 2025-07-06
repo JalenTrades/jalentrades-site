@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content=device-width, initial-scale=1.0" />
+  <title>Jalen Trades</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #111;
+      --header-bg: #f5f5f5;
+      --button-bg: #111;
+      --button-text: white;
+      --button-hover: #333;
+      --footer-color: #888;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #111;
+        --text-color: #f5f5f5;
+        --header-bg: #222;
+        --button-bg: #f5f5f5;
+        --button-text: #111;
+        --button-hover: #ccc;
+        --footer-color: #aaa;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
+    header {
+      padding: 2rem;
+      text-align: center;
+      background: var(--header-bg);
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.25rem;
+    }
+    h2 {
+      font-weight: 400;
+      font-size: 1.2rem;
+      color: var(--text-color);
+    }
+    section {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 2rem;
+    }
+    .button {
+      background: var(--button-bg);
+      color: var(--button-text);
+      padding: 0.75rem 1.5rem;
+      border: none;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+    .button:hover {
+      background: var(--button-hover);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: var(--footer-color);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Jalen Trades</h1>
+    <h2>Professional Trader | AI-Powered Market Outlooks | Futures & Stocks</h2>
+  </header>
+
+  <section>
+    <h3>About Me</h3>
+    <p>I’m Jalen Johnson, a full-time futures and stock trader with over 8 years of market experience. I use AI to enhance my analysis and generate high-quality weekly, monthly, and yearly outlooks. This site is the home for my trading operation—soon, you'll be able to access AI-generated ticker breakdowns, subscribe to my insights, and learn how I approach the markets.</p>
+
+    <h3>What’s Coming</h3>
+    <ul>
+      <li>🔍 On-demand AI stock and index analysis</li>
+      <li>📈 Weekly and monthly trade outlooks</li>
+      <li>🧠 AI-enhanced research tools and dashboards</li>
+      <li>💬 Private community for active traders</li>
+    </ul>
+
+    <button class="button">Join the Waitlist</button>
+  </section>
+
+  <section>
+    <h3>AI Market Outlook</h3>
+    <p>Click the button below to launch the AI tool in a new tab.</p>
+    <a class="button" href="https://jalentrades-app-hi9cvpqhhljv6mnhustkgg.streamlit.app/" target="_blank">
+      Launch AI Market Outlook
+    </a>
+  </section>
+
+  <footer>
+    &copy; 2025 Jalen Trades — All rights reserved.
+  </footer>
+</body>
+</html>
