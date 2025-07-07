@@ -6,11 +6,19 @@
   <title>Jalen Trades | AI-Powered Market Insights</title>
   <link rel="icon" href="https://jalentrades.com/favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <meta name="description" content="Professional trader offering AI-powered market insights, weekly outlooks, and research tools." />
+  <meta property="og:title" content="Jalen Trades | AI-Powered Market Insights" />
+  <meta property="og:description" content="Professional trader providing AI-enhanced market outlooks and research tools." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.jalentrades.com" />
+  <meta property="og:image" content="https://jalentrades.com/favicon.ico" />
   <style>
     :root {
       --primary: #007bff;
       --background: #0f0f0f;
       --text: #eaeaea;
+      --background: #121212;
+      --text: #f0f0f0;
       --muted: #999;
       --card: #1b1b1b;
       --input-bg: #262626;
@@ -36,54 +44,7 @@
     }
 
     h1 {
-      font-size: 3rem;
-      margin: 0;
-      font-weight: 800;
-    }
-
-    h2 {
-      font-weight: 400;
-      font-size: 1.2rem;
-      color: var(--muted);
-    }
-
-    main {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    section {
-      background: var(--card);
-      border-radius: 12px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
-
-    section h3 {
-      margin-top: 0;
-      font-size: 1.5rem;
-      color: var(--primary);
-    }
-
-    ul {
-      padding-left: 1.2rem;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 0.75rem;
-      margin-top: 0.5rem;
-      margin-bottom: 1rem;
-      border: 1px solid var(--input-border);
-      border-radius: 6px;
-      background: var(--input-bg);
-      color: white;
-      font-size: 1rem;
-    }
-
-    textarea {
+@@ -87,85 +93,101 @@
       resize: vertical;
       min-height: 120px;
     }
@@ -109,6 +70,12 @@
       font-size: 0.9rem;
       color: var(--muted);
     }
+    .disclaimer {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
 
     @media (max-width: 600px) {
       h1 {
@@ -138,6 +105,15 @@
         <li>💬 Private community for active traders</li>
       </ul>
     </section>
+    <section>
+      <h3>Subscribe for Updates</h3>
+      <form action="https://formsubmit.co/johnsonjjalen@gmail.com" method="POST">
+        <label for="subscribe-email">Email address</label>
+        <input type="email" name="email" id="subscribe-email" required>
+        <button type="submit" class="button">Subscribe</button>
+      </form>
+    </section>
+
 
     <section>
       <h3>Contact Me</h3>
@@ -159,12 +135,14 @@
       <h3>AI Market Outlook</h3>
       <p>Launch my live AI-powered market scanner tool for instant stock & index breakdowns.</p>
       <a href="https://jalentrades-app-hi9cvpqhhljv6mnhustkgg.streamlit.app/" target="_blank">
+      <a href="https://jalentrades-app-hi9cvpqhhljv6mnhustkgg.streamlit.app/" target="_blank" rel="noopener">
         <button class="button">Launch AI Market Outlook</button>
       </a>
     </section>
   </main>
 
   <footer>
+  <p class="disclaimer">All information is provided for educational purposes only and does not constitute financial advice. Trading involves risk.</p>
     &copy; 2025 Jalen Trades — All rights reserved.
   </footer>
 </body>
