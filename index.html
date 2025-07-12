@@ -1,71 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JalenTrades – Professional ES Futures Trader</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #0a0a0a;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="JalenTrades | Elite Futures Trading Automation" />
+    <title>JalenTrades | Elite Futures Trading Automation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+      }
+      body {
+        background: #0f0f0f;
+        color: #fff;
+        line-height: 1.6;
+      }
+      header {
+        background: #111;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #222;
+      }
+      header h1 {
+        font-size: 1.8rem;
+        color: #33ff99;
+      }
+      nav a {
+        color: #ccc;
+        text-decoration: none;
+        margin-left: 1.5rem;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+      nav a:hover {
+        color: #fff;
+      }
+      .hero {
+        padding: 4rem 2rem;
+        text-align: center;
+      }
+      .hero h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #33ff99;
+      }
+      .hero p {
+        font-size: 1.2rem;
+        color: #aaa;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      .btn {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 0.75rem 2rem;
+        background: #33ff99;
+        color: #0f0f0f;
+        border-radius: 6px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background 0.3s ease;
+      }
+      .btn:hover {
+        background: #28cc80;
+      }
+      section.features {
+        padding: 4rem 2rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        background: #121212;
+      }
+      .feature {
+        background: #1a1a1a;
+        padding: 2rem;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #222;
+      }
+      .feature i {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #33ff99;
+      }
+      .feature h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+      footer {
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.9rem;
+        background: #111;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>JalenTrades</h1>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="/dashboard">Live Dashboard</a>
+        <a href="mailto:jalen@jalentrades.com">Contact</a>
+      </nav>
+    </header>
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
+    <div class="hero">
+      <h2>Elite Futures Trading Automation</h2>
+      <p>
+        Unlock institutional-grade performance with JalenTrades' AI-powered MES/ES trading assistant. Designed for professional traders managing their own capital.
+      </p>
+      <a href="/dashboard" class="btn">Launch Trading Dashboard</a>
+    </div>
 
-    p {
-      font-size: 1.25rem;
-      color: #bbbbbb;
-      margin-bottom: 2rem;
-    }
+    <section class="features" id="features">
+      <div class="feature">
+        <i class="fas fa-robot"></i>
+        <h3>Automated Order Management</h3>
+        <p>Smart order routing with support for TWAP, VWAP, Iceberg, and more.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-chart-line"></i>
+        <h3>Real-Time Analytics</h3>
+        <p>Live price tracking, trade metrics, and execution quality monitoring.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Risk Management</h3>
+        <p>Position limits, slippage control, and max drawdown enforcement.</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-plug"></i>
+        <h3>IronBeam API Integration</h3>
+        <p>Connect your real account and control live MES trading from anywhere.</p>
+      </div>
+    </section>
 
-    .btn {
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #1f1f1f;
-      color: white;
-      border: 1px solid #333;
-      transition: background 0.3s, transform 0.2s;
-      margin: 0.5rem;
-    }
-
-    .btn:hover {
-      background: #333;
-      transform: scale(1.03);
-    }
-
-    footer {
-      position: absolute;
-      bottom: 1rem;
-      font-size: 0.85rem;
-      color: #555;
-    }
-  </style>
-</head>
-<body>
-  <main>
-    <h1>JalenTrades</h1>
-    <p>Official site for a professional ES futures trader building world-class tools.</p>
-    <a href="/dashboard"><button class="btn">Live Trading Dashboard</button></a>
-    <a href="mailto:jalen@jalentrades.com"><button class="btn">Contact Me</button></a>
-  </main>
-  <footer>
-    &copy; 2025 JalenTrades. All rights reserved.
-  </footer>
-</body>
+    <footer>
+      &copy; 2025 JalenTrades. All rights reserved. | Powered by OpenAI & Futures Engineering
+    </footer>
+  </body>
 </html>
