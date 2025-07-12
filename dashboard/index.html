@@ -1,1 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MES Trading Assistant - Professional Interface</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #141414;
+            --card-bg: #1a1a1a;
+            --accent-color: #00d4aa;
+            --success-color: #00ff88;
+            --danger-color: #ff4757;
+            --warning-color: #ffa502;
+            --text-primary: #ffffff;
+            --text-secondary: #8e8e93;
+            --border-color: #2c2c2e;
+            --hover-bg: #2c2c2e;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Advanced Grid Layout */
+        .trading-container {
+            display: grid;
+            grid-template-areas: 
+                "header header header"
+                "sidebar main-content order-panel"
+                "sidebar chart-area order-panel";
+            grid-template-columns: 280px 1fr 320px;
+            grid-template-rows: 70px 1fr 1fr;
+            height: 100vh;
+            gap: 1px;
+            background: var(--border-color);
+        }
+
+        /* Header */
+        .header {
+            grid-area: header;
+            background: var(--secondary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-color), #00b894);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .app-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .connection-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--card-bg);
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-connected { background: var(--success-color); }
+        .status-disconnected { background: var(--danger-color); }
+        .status-connecting { background: var(--warning-color); }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            grid-area: sidebar;
+            background: var(--secondary-bg);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .account-summary {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .balance-display {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .balance-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--success-color);
+            margin-bottom: 4px;
+        }
+
+        .balance-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pnl-display {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .pnl-item {
+            text-align: center;
+        }
+
+        .pnl-value {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .pnl-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .positions-panel {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .panel-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .position-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s ease;
+        }
+
+        .position-item:hover {
+            background: var(--hover-bg);
+        }
+
+        .position-item:last-child {
+            border-bottom: none;
+        }
+
+        .position-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .position-symbol {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .position-side {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .side-long {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--success-color);
+        }
+
+        .side-short {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--danger-color);
+        }
+
+        .position-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            grid-area: main-content;
+            background: var(--secondary-bg);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .market-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-change {
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .change-positive { color: var(--success-color); }
+        .change-negative { color: var(--danger-color); }
+        .change-neutral { color: var(--text-secondary); }
+
+        /* Order History Table */
+        .orders-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .orders-table th {
+            padding: 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .orders-table td {
+            padding: 16px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .orders-table tr:hover {
+            background: var(--hover-bg);
+        }
+
+        .order-status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-filled {
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--success-color);
+        }
+
+        .status-pending {
+            background: rgba(255, 165, 2, 0.2);
+            color: var(--warning-color);
+        }
+
+        .status-cancelled {
+            background: rgba(255, 71, 87, 0.2);
+            color: var(--danger-color);
+        }
+
+        /* Chart Area */
+        .chart-area {
+            grid-area: chart-area;
+            background: var(--secondary-bg);
+            padding: 20px;
+        }
+
+        .chart-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Order Panel */
+        .order-panel {
+            grid-area: order-panel;
+            background: var(--secondary-bg);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .order-form {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 12px center;
+            background-repeat: no-repeat;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .side-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .side-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .side-btn.buy {
+            background: rgba(0, 255, 136, 0.1);
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .side-btn.buy.active {
+            background: var(--success-color);
+            color: var(--primary-bg);
+        }
+
+        .side-btn.sell {
+            background: rgba(255, 71, 87, 0.1);
+            color: var(--danger-color);
+            border: 1px solid var(--danger-color);
+        }
+
+        .side-btn.sell.active {
+            background: var(--danger-color);
+            color: var(--primary-bg);
+        }
+
+        .order-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--accent-color);
+            color: var(--primary-bg);
+        }
+
+        .order-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(0, 212, 170, 0.3);
+        }
+
+        .order-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--hover-bg);
+            border-color: var(--accent-color);
+        }
+
+        /* Alerts */
+        .alerts-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            max-width: 400px;
+        }
+
+        .alert {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 8px;
+            border-left: 4px solid;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .alert-success { border-left-color: var(--success-color); }
+        .alert-error { border-left-color: var(--danger-color); }
+        .alert-warning { border-left-color: var(--warning-color); }
+        .alert-info { border-left-color: var(--accent-color); }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .trading-container {
+                grid-template-areas: 
+                    "header header"
+                    "main-content order-panel"
+                    "chart-area order-panel"
+                    "sidebar sidebar";
+                grid-template-columns: 1fr 320px;
+                grid-template-rows: 70px 1fr 1fr auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .trading-container {
+                grid-template-areas: 
+                    "header"
+                    "main-content"
+                    "order-panel"
+                    "chart-area"
+                    "sidebar";
+                grid-template-columns: 1fr;
+                grid-template-rows: 70px auto auto auto auto;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="trading-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-section">
+                <div class="logo">⚡</div>
+                <div>
+                    <div class="app-title">MES Trading Assistant</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">Professional Trading Platform</div>
+                </div>
+            </div>
+            
+            <div class="header-actions">
+                <div class="connection-indicator">
+                    <div class="status-dot status-connecting" id="connectionStatus"></div>
+                    <span id="connectionText">Connecting...</span>
+                </div>
+                <button class="action-btn" onclick="dashboard.toggleTheme()">
+                    <i class="fas fa-palette"></i>
+                </button>
+                <button class="action-btn" onclick="dashboard.showSettings()">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="account-summary">
+                <div class="balance-display">
+                    <div class="balance-amount" id="accountBalance">$50,000.00</div>
+                    <div class="balance-label">Account Balance</div>
+                </div>
+                
+                <div class="pnl-display">
+                    <div class="pnl-item">
+                        <div class="pnl-value change-neutral" id="dailyPnL">$0.00</div>
+                        <div class="pnl-label">Daily P&L</div>
+                    </div>
+                    <div class="pnl-item">
+                        <div class="pnl-value change-neutral" id="unrealizedPnL">$0.00</div>
+                        <div class="pnl-label">Unrealized</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="positions-panel">
+                <div class="panel-header">
+                    <i class="fas fa-chart-line"></i> Positions
+                </div>
+                <div id="positionsContainer">
+                    <div style="padding: 20px; text-align: center; color: var(--text-secondary);">
+                        No open positions
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="market-overview">
+                <div class="metric-card">
+                    <div class="metric-value" id="mesPrice">$4,205.75</div>
+                    <div class="metric-label">MES Price</div>
+                    <div class="metric-change change-neutral" id="mesChange">
+                        <i class="fas fa-minus"></i> $0.00 (0.00%)
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value" id="todayTrades">0</div>
+                    <div class="metric-label">Today's Trades</div>
+                    <div class="metric-change change-neutral" id="winRate">
+                        <i class="fas fa-chart-bar"></i> 0% Win Rate
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-value" id="systemStatus">Offline</div>
+                    <div class="metric-label">System Status</div>
+                    <div class="metric-change change-neutral" id="uptime">
+                        <i class="fas fa-clock"></i> Ready
+                    </div>
+                </div>
+            </div>
+
+            <div class="orders-section">
+                <div class="panel-header">
+                    <i class="fas fa-list"></i> Recent Orders
+                </div>
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Symbol</th>
+                            <th>Side</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>P&L</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: var(--text-secondary); padding: 40px;">
+                                No orders yet
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <!-- Chart Area -->
+        <section class="chart-area">
+            <div class="chart-container">
+                <div>
+                    <i class="fas fa-chart-candlestick" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
+                    <div>Advanced charting coming soon</div>
+                    <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">
+                        Real-time MES price action and technical indicators
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Panel -->
+        <aside class="order-panel">
+            <div class="order-form">
+                <div class="panel-header" style="padding: 0 0 16px 0;">
+                    <i class="fas fa-plus-circle"></i> Place Order
+                </div>
+                
+                <div class="side-buttons">
+                    <button class="side-btn buy active" onclick="dashboard.selectSide('buy')">
+                        <i class="fas fa-arrow-up"></i> BUY
+                    </button>
+                    <button class="side-btn sell" onclick="dashboard.selectSide('sell')">
+                        <i class="fas fa-arrow-down"></i> SELL
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Symbol</label>
+                    <select class="form-input form-select" id="orderSymbol">
+                        <option value="MES">MES - Micro E-mini S&P 500</option>
+                        <option value="ES">ES - E-mini S&P 500</option>
+                        <option value="NQ">NQ - E-mini NASDAQ-100</option>
+                        <option value="YM">YM - E-mini Dow Jones</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Order Type</label>
+                    <select class="form-input form-select" id="orderType" onchange="dashboard.handleOrderTypeChange()">
+                        <option value="market">Market</option>
+                        <option value="limit">Limit</option>
+                        <option value="stop">Stop</option>
+                        <option value="stop_limit">Stop Limit</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" class="form-input" id="orderQuantity" value="1" min="1" max="10">
+                </div>
+
+                <div class="form-group" id="priceGroup" style="display: none;">
+                    <label class="form-label">Price</label>
+                    <input type="number" class="form-input" id="orderPrice" step="0.25">
+                </div>
+
+                <div class="form-group" id="stopPriceGroup" style="display: none;">
+                    <label class="form-label">Stop Price</label>
+                    <input type="number" class="form-input" id="orderStopPrice" step="0.25">
+                </div>
+
+                <button class="order-btn" id="placeOrderBtn" onclick="dashboard.placeOrder()">
+                    <span id="orderBtnText">Place Order</span>
+                    <div class="loading" id="orderLoading" style="display: none;"></div>
+                </button>
+            </div>
+
+            <div class="quick-actions">
+                <div class="panel-header" style="padding: 0 0 16px 0;">
+                    <i class="fas fa-bolt"></i> Quick Actions
+                </div>
+                
+                <button class="action-btn" onclick="dashboard.closeAllPositions()">
+                    <i class="fas fa-times-circle"></i> Close All Positions
+                </button>
+                
+                <button class="action-btn" onclick="dashboard.cancelAllOrders()">
+                    <i class="fas fa-ban"></i> Cancel All Orders
+                </button>
+                
+                <button class="action-btn" onclick="dashboard.refreshData()">
+                    <i class="fas fa-sync-alt"></i> Refresh Data
+                </button>
+                
+                <button class="action-btn" onclick="dashboard.exportTrades()">
+                    <i class="fas fa-download"></i> Export Trades
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Alerts Container -->
+    <div class="alerts-container" id="alertsContainer"></div>
+
+    <!-- Enhanced JavaScript Integration -->
+    <script src="static/js/trading-dashboard.js"></script>
+</body>
+</html>
